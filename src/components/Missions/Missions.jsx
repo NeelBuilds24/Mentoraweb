@@ -19,7 +19,7 @@ function Missions() {
             <p className="mission-description">{mission.description}</p>
             <div className="mission-skills"><span>SKILLS</span><p>{mission.skills.map((skill) => <b key={skill}>{skill}</b>)}</p></div>
             <div className="mission-meta"><span><small>DIFFICULTY</small><strong>{mission.difficulty}</strong></span><span><small>TASKS</small><strong>{mission.tasks}</strong></span></div>
-            <a className="mission-cta" href="#join">Preview Mission <span aria-hidden="true">-&gt;</span></a>
+            <a className="mission-cta" href="#about" aria-label={`See the product preview for ${mission.title}`}>See the product preview <span aria-hidden="true">-&gt;</span></a>
           </article>
         ))}
       </div>

@@ -69,20 +69,20 @@ function Waitlist() {
               <input id="waitlist-email" name="email" type="email" value={form.email} onChange={handleChange} autoComplete="email" required />
             </div>
             <div className="waitlist-field">
-              <label htmlFor="waitlist-audience">What best describes you?</label>
+              <label htmlFor="waitlist-audience">What best describes you? <span className="field-optional">(optional)</span></label>
               <select id="waitlist-audience" name="audience" value={form.audience} onChange={handleChange}>
                 <option value="">Select one</option><option>Student</option><option>Working professional</option><option>Entrepreneur</option><option>Freelancer</option><option>Other</option>
               </select>
             </div>
             <div className="waitlist-field">
-              <label htmlFor="waitlist-goal">What do you want to use AI for?</label>
+              <label htmlFor="waitlist-goal">What do you want to use AI for? <span className="field-optional">(optional)</span></label>
               <select id="waitlist-goal" name="goal" value={form.goal} onChange={handleChange}>
                 <option value="">Select one</option><option>Studies</option><option>Career</option><option>Work</option><option>Business</option><option>Productivity</option><option>Content creation</option><option>Coding</option><option>Other</option>
               </select>
             </div>
             <div className="waitlist-field">
-              <label htmlFor="waitlist-challenge">What is your biggest challenge with learning AI tools?</label>
-              <textarea id="waitlist-challenge" name="challenge" value={form.challenge} onChange={handleChange} rows="3" />
+              <label htmlFor="waitlist-challenge">What is your biggest challenge with learning AI tools? <span className="field-optional">(optional)</span></label>
+              <textarea id="waitlist-challenge" name="challenge" value={form.challenge} onChange={handleChange} rows="3" placeholder="Optional: tell us what gets in the way" />
             </div>
             {status === 'error' && <p className="waitlist-error" role="alert">{errorMessage}</p>}
             <button className="button button-primary waitlist-submit" type="submit" disabled={status === 'loading'} aria-busy={status === 'loading'}>{status === 'loading' ? 'Joining...' : 'Join the Waitlist'} <span aria-hidden="true">-&gt;</span></button>

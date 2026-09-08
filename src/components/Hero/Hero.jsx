@@ -7,7 +7,7 @@ function Hero() {
         <p className="hero-text reveal reveal-delay-2">Mentora AI helps students and professionals master AI tools through practical, hands-on learning — so you can go beyond knowing what AI can do and learn how to actually use it.</p>
         <div className="hero-actions reveal reveal-delay-3">
           <a className="button button-primary" href="#join">Join the Waitlist <span aria-hidden="true">-&gt;</span></a>
-          <a className="text-link" href="#method">See How It Works <span aria-hidden="true">↓</span></a>
+          <a className="text-link" href="#solution">See How It Works <span aria-hidden="true">↓</span></a>
         </div>
         <p className="hero-trust reveal reveal-delay-3">Learn. Practice. Build real AI skills.</p>
       </div>
