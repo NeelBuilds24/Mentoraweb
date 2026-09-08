@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #101110;
+  --panel: #181b19;
+  --text: #e8e7e2;
+  --muted: #969c92;
+  --line: #303631;
+  --acid: #c9f86b;
+  --orange: #ff805c;
+  --serif: 'Space Grotesk', sans-serif;
+  --mono: 'DM Mono', monospace;
+  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}

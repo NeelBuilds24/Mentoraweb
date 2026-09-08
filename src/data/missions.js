@@ -1,0 +1,32 @@
+export const missions = [
+  {
+    id: 'research-smarter',
+    number: '01',
+    title: 'Research Smarter',
+    description: 'Learn AI research techniques and produce a structured research brief.',
+    skills: ['AI Research', 'Prompting', 'Information Synthesis'],
+    difficulty: 'Beginner',
+    tasks: 5,
+    icon: 'research',
+  },
+  {
+    id: 'build-with-ai',
+    number: '02',
+    title: 'Build With AI',
+    description: 'Use an AI coding assistant to create and improve a small web project.',
+    skills: ['AI Coding', 'Prompting', 'Debugging'],
+    difficulty: 'Intermediate',
+    tasks: 6,
+    icon: 'coding',
+  },
+  {
+    id: 'create-with-ai',
+    number: '03',
+    title: 'Create With AI',
+    description: 'Use generative AI tools to turn an idea into a polished visual concept.',
+    skills: ['Image Generation', 'Prompting', 'Creative Direction'],
+    difficulty: 'Beginner',
+    tasks: 4,
+    icon: 'create',
+  },
+]
