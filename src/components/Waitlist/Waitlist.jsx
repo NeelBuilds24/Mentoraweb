@@ -1,35 +1,91 @@
 import { useState } from 'react'
 
-function Waitlist() {
-  const [submitted, setSubmitted] = useState(false)
-  const [audience, setAudience] = useState('')
+const initialForm = {
+  name: '',
+  email: '',
+  audience: '',
+  goal: '',
+  challenge: '',
+}
 
-  const handleSubmit = (event) => {
+const submitWaitlist = async (submission) => {
+  // Replace this local adapter with the waitlist API when the backend is ready.
+  return { accepted: true, submission }
+}
+
+function Waitlist() {
+  const [form, setForm] = useState(initialForm)
+  const [status, setStatus] = useState('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setForm((currentForm) => ({ ...currentForm, [name]: value }))
+    if (status === 'error') setStatus('idle')
+  }
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    setSubmitted(true)
+    if (!form.name.trim()) {
+      setErrorMessage('Please enter your name to join the list.')
+      setStatus('error')
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+      setErrorMessage('Please enter a valid email address to join the list.')
+      setStatus('error')
+      return
+    }
+
+    setStatus('loading')
+    setErrorMessage('')
+
+    try {
+      const result = await submitWaitlist(form)
+      if (!result.accepted) throw new Error('Submission was not accepted')
+      setStatus('success')
+    } catch {
+      setErrorMessage('We could not join you to the early-access list right now. Please try again.')
+      setStatus('error')
+    }
   }
 
   return (
     <section className="join section shell" id="join">
       <div className="join-content">
-        <p className="eyebrow">WE ARE EARLY</p>
-        <h2>Help shape the<br /><em>practice layer.</em></h2>
-        <p>Mentora is in the making. Join the early list to get first access, share what you are trying to learn, and help us build the right missions.</p>
-        {submitted ? (
-          <div className="success-message"><span>✓</span><div><strong>You are on the list.</strong><small>We will be in touch when the first missions are ready.</small></div></div>
+        <p className="eyebrow">EARLY ACCESS</p>
+        <h2>Be among the first<br /><em>to learn AI by doing.</em></h2>
+        <p>Mentora is currently being built. Join the early-access list and help us shape the future of practical AI learning.</p>
+        {status === 'success' ? (
+          <div className="success-message" role="status" aria-live="polite"><span>✓</span><div><strong>You're on the list.</strong><small>We'll keep you updated as Mentora gets closer to launch.</small></div></div>
         ) : (
-          <form className="waitlist-form" onSubmit={handleSubmit}>
-            <label className="sr-only" htmlFor="email">Your email address</label>
-            <input id="email" type="email" placeholder="you@company.com" required />
-            <button className="button button-primary" type="submit">Join the list <span aria-hidden="true">-&gt;</span></button>
-            <label className="sr-only" htmlFor="audience">I am a</label>
-            <select id="audience" value={audience} onChange={(event) => setAudience(event.target.value)}>
-              <option value="">I am a... (optional)</option>
-              <option value="student">Student</option>
-              <option value="professional">Working professional</option>
-              <option value="career-switcher">Career switcher</option>
-              <option value="other">Something else</option>
-            </select>
+          <form className="waitlist-form waitlist-form-expanded" onSubmit={handleSubmit} noValidate>
+            <div className="waitlist-field waitlist-field-half">
+              <label htmlFor="waitlist-name">Name <span aria-hidden="true">*</span></label>
+              <input id="waitlist-name" name="name" type="text" value={form.name} onChange={handleChange} autoComplete="name" required />
+            </div>
+            <div className="waitlist-field waitlist-field-half">
+              <label htmlFor="waitlist-email">Email <span aria-hidden="true">*</span></label>
+              <input id="waitlist-email" name="email" type="email" value={form.email} onChange={handleChange} autoComplete="email" required />
+            </div>
+            <div className="waitlist-field">
+              <label htmlFor="waitlist-audience">What best describes you?</label>
+              <select id="waitlist-audience" name="audience" value={form.audience} onChange={handleChange}>
+                <option value="">Select one</option><option>Student</option><option>Working professional</option><option>Entrepreneur</option><option>Freelancer</option><option>Other</option>
+              </select>
+            </div>
+            <div className="waitlist-field">
+              <label htmlFor="waitlist-goal">What do you want to use AI for?</label>
+              <select id="waitlist-goal" name="goal" value={form.goal} onChange={handleChange}>
+                <option value="">Select one</option><option>Studies</option><option>Career</option><option>Work</option><option>Business</option><option>Productivity</option><option>Content creation</option><option>Coding</option><option>Other</option>
+              </select>
+            </div>
+            <div className="waitlist-field">
+              <label htmlFor="waitlist-challenge">What is your biggest challenge with learning AI tools?</label>
+              <textarea id="waitlist-challenge" name="challenge" value={form.challenge} onChange={handleChange} rows="3" />
+            </div>
+            {status === 'error' && <p className="waitlist-error" role="alert">{errorMessage}</p>}
+            <button className="button button-primary waitlist-submit" type="submit" disabled={status === 'loading'} aria-busy={status === 'loading'}>{status === 'loading' ? 'Joining...' : 'Join the Waitlist'} <span aria-hidden="true">-&gt;</span></button>
           </form>
         )}
         <small className="form-note">No spam. Just thoughtful updates from the build.</small>
